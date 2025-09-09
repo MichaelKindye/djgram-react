@@ -1,13 +1,16 @@
-import  Sidebar from "@/components/sidebar/Sidebar";
-import Messagebar from "@/components/messagebar/Messagebar";
+import { Route, Routes } from "react-router-dom";
+import Home from '@/components/home/home';
+import Login from '@/components/login/login';
+import SignUp from '@/components/signup/signup';
 
 const App = () => {
   return (
-        <div className="flex w-full h-screen dark:bg-gray-500">
-        <Sidebar />
-        <Messagebar />
-        </div>
-    )
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/login" element={<Login/>} />
+      <Route path="/signup" element={<SignUp/>} />
+    </Routes>
+  )
 }
 
 export default App;

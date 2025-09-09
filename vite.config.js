@@ -10,4 +10,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  proxy: {
+    server: {
+      '/login': 'http://127.0.0.1:8000',
+    }
+  }
 })
