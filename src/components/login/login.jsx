@@ -14,7 +14,7 @@ import Visible from '@/assets/password-visible.svg';
 import Invisible from '@/assets/password-invisible.svg';
 
 const SignUpSchema = z.object({
-    'username':z.string().min(3, 'Invalid username'),
+    'email':z.email('Invalid email'),
     'password':z.string().min(4, 'Password must be at least 6 characters')
 })
 
@@ -26,7 +26,7 @@ const Login = () => {
         resolver:zodResolver(SignUpSchema)
     })
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
     const onSubmit = async (data) => {
         setLoading(true)
         setPasswordType("password")
@@ -36,13 +36,14 @@ const navigate = useNavigate()
             navigate('/')
         } catch(err){
             console.error('error: ', err.response?.data || err.message )
+            alert(err.response?.data.error || err.message)
         } finally{
             setLoading(false)
         }
     }
 
     return(
-        <Card className="h-screen bg-gradient-to-t from-pink-400 via-blue-300 to-purple-300 flex flex-col items-center">
+        <Card className="h-screen bg-gradient-to-t from-pink-400 via-blue-300 to-purple-300 flex flex-col items-center rounded-none">
             <CardContent className="min-h-[70%] max-w-sm border border-gray-200 bg-white/30 rounded-sm flex flex-col items-center py-10 mt-10">
                 <div>
                     <img src={LoginArrow} alt="" />
@@ -50,10 +51,10 @@ const navigate = useNavigate()
                 <h2 className="text-[24px]">Login with your email</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 mt-10">
                     <div className="bg-gray-200/50 flex items-center  rounded-full px-2">
-                        <label htmlFor="username"><img src={EmailSvg} /></label>
-                        <Input placeholder="Username" id="username" className="border-none focus-visible:ring-0" {...register("username")}/>
+                        <label htmlFor="email"><img src={EmailSvg} /></label>
+                        <Input placeholder="Email" id="email" className="border-none focus-visible:ring-0" {...register("email")}/>
                     </div>
-                    {errors.username && (<p className="text-red-500">{errors.username.message}</p>)}
+                    {errors.email && (<p className="text-red-500">{errors.email.message}</p>)}
                     <div className="bg-gray-200/50 flex items-center rounded-full px-2">
                         <label htmlFor="password"><img src={LockSvg} /></label>
                         <Input placeholder="Password" id="password" type={passwordType} className="border-none focus-visible:ring-0 rounded-none" {...register("password")}/>
