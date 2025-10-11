@@ -26,7 +26,7 @@ const Head = ({pairUser, pairUserTyping}) => {
                             </span>
                             </>
                         )
-                    : onlineUsers.includes(pairUser.id) && !pairUserTyping ? <p className="text-green-600">online</p> : null
+                    : Array.isArray(onlineUsers) && onlineUsers.includes(pairUser.id) && !pairUserTyping ? <p className="text-green-600">online</p> : null
                     }
                 </div>
             </div>
