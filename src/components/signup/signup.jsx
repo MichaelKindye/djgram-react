@@ -33,7 +33,7 @@ const navigate = useNavigate()
         setLoading(true)
         setPasswordType("password")
         try{
-           const res = await api.post('http://localhost:8000/api/register/', data)
+           const res = await api.post('/api/register/', data)
             console.log('response: ', res.data.access)
             navigate('/login')
         } catch(err){
