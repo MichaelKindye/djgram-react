@@ -1,13 +1,13 @@
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
-import axios, { Axios } from "axios";
+import axios from "axios";
+import { api } from "@/services/api/API";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from "react";
-import LoginArrow from '@/assets/login-arrow.svg';
 import EmailSvg from '@/assets/email.svg';
 import LockSvg from '@/assets/lock.svg';
 import Visible from '@/assets/password-visible.svg';
@@ -33,7 +33,7 @@ const navigate = useNavigate()
         setLoading(true)
         setPasswordType("password")
         try{
-           const res = await axios.post('http://127.0.0.1:8000/register/', data)
+           const res = await api.post('http://localhost:8000/api/register/', data)
             console.log('response: ', res.data.access)
             navigate('/login')
         } catch(err){

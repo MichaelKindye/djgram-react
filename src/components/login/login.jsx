@@ -2,7 +2,6 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
-import axios, { Axios } from "axios";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,6 +11,8 @@ import EmailSvg from '@/assets/email.svg';
 import LockSvg from '@/assets/lock.svg';
 import Visible from '@/assets/password-visible.svg';
 import Invisible from '@/assets/password-invisible.svg';
+import { api } from "@/services/api/API";
+
 
 const SignUpSchema = z.object({
     'email':z.email('Invalid email'),
@@ -31,7 +32,7 @@ const Login = () => {
         setLoading(true)
         setPasswordType("password")
         try{
-           const res = await axios.post('http://127.0.0.1:8000/login/', data)
+           const res = await api.post('/api/login/', data, {withCredentials: true})
             console.log('response: ', res.data.access)
             navigate('/')
         } catch(err){
