@@ -33,7 +33,6 @@ const Login = () => {
         setPasswordType("password")
         try{
            const res = await api.post('/api/login/', data, {withCredentials: true})
-            console.log('response: ', res.data.access)
             navigate('/')
         } catch(err){
             console.error('error: ', err.response?.data || err.message )

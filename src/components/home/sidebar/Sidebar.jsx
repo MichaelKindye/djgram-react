@@ -18,7 +18,6 @@ const Sidebar = () => {
 
             if(Array.isArray(data)){
             setUsers(data);
-            console.log(data);            
             }else{
                 setUsers([]);
                 console.error('Data is not an array:', data.detail || data.error || data);
@@ -42,12 +41,9 @@ const Sidebar = () => {
     useEffect(() => {
         if(!lastJsonMessage) return;
         if(lastJsonMessage.action && lastJsonMessage.action === 'went_online'){
-            console.log('received event:', lastJsonMessage);
             if(Array.isArray(onlineUsers) && onlineUsers.includes(lastJsonMessage.user)) return;
             setOnlineUsers(prev => [...prev, lastJsonMessage.user]);
-            console.log('added user to onlineUsers:', lastJsonMessage.user);
         }else if(lastJsonMessage.action && lastJsonMessage.action === 'went_offline'){
-            console.log('received event:', lastJsonMessage);
             if(Array.isArray(onlineUsers) && !onlineUsers.includes(lastJsonMessage.user)) return;
             setOnlineUsers(prev => prev.filter((user) => user !== lastJsonMessage.user));
         }
@@ -69,7 +65,6 @@ const Sidebar = () => {
 
     useEffect(() => {
         if(users.length > 0){
-            console.log('users inside useEffect:', users);
             const data = handleOnlineUsersFetch(users);
             setOnlineUsers(data);
         }

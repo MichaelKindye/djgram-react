@@ -10,7 +10,6 @@ export function WebSocketProvider({children}){
     const location = useLocation();
 
     const Connect = location.pathname === '/';
-    console.log('Connect ws:', Connect);
     const { sendJsonMessage, lastJsonMessage, readyState, getWebSocket } = useWebSocket(
         Connect &&  user && pairUser ? `wss://djgram.onrender.com/ws/${user.data.id}/${pairUser.id}/` : Connect ? 'wss://djgram.onrender.com/ws/' : null,
         {

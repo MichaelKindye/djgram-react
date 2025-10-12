@@ -19,10 +19,7 @@ const Messagebar = () => {
     const { user } = useContext(UserContext);
     const { lastJsonMessage, sendJsonMessage } = useContext(WebSocketContext);
     useEffect(() => {
-        console.log('Entered useEffect')
-        console.log('user:', user.data?.id, 'pair user:', pairUser)
         if(pairUser && user){
-            console.log('logged user:', user)
            fetchMessages(user.data.id, pairUser.id)
            .then(data => setMessages(data))
            .catch(data => data.detail || data.error || console.log('Error updating messages'));
@@ -43,7 +40,6 @@ const Messagebar = () => {
             setPairUserTyping(false);
             return;
         }else if(lastJsonMessage.message){
-            console.log('lastJsonMessage:', lastJsonMessage.message);
             const message = {'id': lastJsonMessage.id, 'sender': lastJsonMessage.sender, 'content': lastJsonMessage.message, 'timestamp': dayjs(lastJsonMessage.timestamp).fromNow()};
             if(pairUserTyping) setPairUserTyping(false);
             setMessages((prev) => [message, ...prev]);             

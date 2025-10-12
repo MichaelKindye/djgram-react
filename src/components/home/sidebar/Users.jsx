@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from "react";
-import { fetchUsers } from "@/services/api/API";
+import { useContext } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { PairUserContext } from '@/services/context/userContext';
-import { array } from "zod";
 
 const Users = ({users, onlineUsers}) => {
     const { pairUser, setPairUser } = useContext(PairUserContext);
@@ -13,7 +11,6 @@ const Users = ({users, onlineUsers}) => {
                   onClick={() => {
                     if(pairUser != user.id){
                         setPairUser(user);
-                        console.log('setted pair user:', pairUser);
                     }
                     }}
             >
