@@ -6,6 +6,7 @@ import { fetchMessages } from "@/services/api/API";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { PairUserContext, UserContext, WebSocketContext } from "@/services/context/userContext";
+import { set } from "zod";
 
 dayjs.extend(relativeTime)
 
@@ -65,10 +66,18 @@ const Messagebar = () => {
         return () => clearTimeout(typingTimeout);
     }, [inputValue])
 
+    const handleMessageSending = () => {
+        if(inputValue.trim().length > 0){
+            sendJsonMessage({message: inputValue.trim()});
+            setInputValue('');
+        };
+    };
+
     const handleKeyDown = (event) => {
         if(event.key === 'Enter'){
             if(event.target.textContent.trim().length > 0){
                 sendJsonMessage({message: event.target.innerText.trim()});
+                setInputValue('');
                 event.target.innerText = '';
                 event.target.parentElement.replaceChildren('', event.target);
                 event.target.focus();
@@ -101,7 +110,7 @@ const Messagebar = () => {
             ) 
             }  
             </div>
-            <MessageInput handleKeyDown={handleKeyDown} setInputValue={setInputValue} setPairUserTyping={setPairUserTyping} setIsTyping={setIsTyping} className="flex-1"/>
+            <MessageInput handleKeyDown={handleKeyDown} setInputValue={setInputValue} handleMessageSending={handleMessageSending} className="flex-1"/>
         </div>
     )
 }

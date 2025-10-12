@@ -43,6 +43,10 @@ const Login = () => {
         }
     }
 
+    const RedirectToSignUp = () => {
+        navigate('/signup');
+    };
+
     return(
         <Card className="h-screen bg-gradient-to-t from-pink-400 via-blue-300 to-purple-300 flex flex-col items-center rounded-none">
             <CardContent className="min-h-[70%] max-w-sm border border-gray-200 bg-white/30 rounded-sm flex flex-col items-center py-10 mt-10">
@@ -69,6 +73,7 @@ const Login = () => {
                     </Button>
                     
                 </form>
+                <a onClick={RedirectToSignUp} className="mt-7 text-blue-500 hover:text-blue-600 cursor-pointer text-sm">SignUp here</a>
             </CardContent>
         </Card>
     )

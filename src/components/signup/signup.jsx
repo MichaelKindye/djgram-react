@@ -28,7 +28,7 @@ const SignUp = () => {
         resolver:zodResolver(SignUpSchema)
     })
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
     const onSubmit = async (data) => {
         setLoading(true)
         setPasswordType("password")
@@ -43,6 +43,10 @@ const navigate = useNavigate()
             setLoading(false)
         }
     }
+
+    const RedirectToLogin = () => {
+        navigate('/login');
+    };
 
     return(
         <Card className="h-screen bg-gradient-to-t from-pink-400 via-blue-300 to-purple-300 flex flex-col items-center">
@@ -75,6 +79,7 @@ const navigate = useNavigate()
                     </Button>
                     
                 </form>
+                <a onClick={RedirectToLogin} className="mt-7 text-blue-500 text-sm hover:text-blue-600 cursor-pointer">Login here</a>
             </CardContent>
         </Card>
     )

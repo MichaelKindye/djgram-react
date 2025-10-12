@@ -2,6 +2,7 @@ import path from "path"
 import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
+import fs from 'fs';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
@@ -10,9 +11,25 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  proxy: {
-    server: {
-      '/login': 'http://127.0.0.1:8000',
-    }
+  
+  server: {
+    https: {
+      cert: fs.readFileSync('./ssl/localhost.pem'),
+      key: fs.readFileSync('./ssl/localhost-key.pem')
+    },
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'https://djgram.onrender.com',
+        changeOrigin: true,
+        secure: false
+      },
+
+      '/ws': {
+        target: 'https://djgram.onrender.com',
+        ws: true,
+        changeOrigin: true,
+        secure: false
+      }
   }
-})
+}})
