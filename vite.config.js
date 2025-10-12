@@ -10,26 +10,4 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-  },
-  
-  server: {
-    https: {
-      cert: fs.readFileSync('./ssl/localhost.pem'),
-      key: fs.readFileSync('./ssl/localhost-key.pem')
-    },
-    port: 5173,
-    proxy: {
-      '/api': {
-        target: 'https://djgram.onrender.com',
-        changeOrigin: true,
-        secure: false
-      },
-
-      '/ws': {
-        target: 'https://djgram.onrender.com',
-        ws: true,
-        changeOrigin: true,
-        secure: false
-      }
-  }
-}})
+  }})
