@@ -5,12 +5,14 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { fetchUsers, fetchOnlineUsers, fetchUser } from "@/services/api/API";
 import { useState, useEffect, useContext } from "react";
 import { WebSocketContext, UserContext, OnlineUsersContext} from "@/services/context/userContext";
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
     const [users, setUsers] = useState([]);
     const {onlineUsers, setOnlineUsers} = useContext(OnlineUsersContext);
     const { lastJsonMessage } = useContext(WebSocketContext);
     const { setUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const handleFetch = async (query='') => {
         try{
@@ -20,6 +22,7 @@ const Sidebar = () => {
             setUsers(data);
             }else{
                 setUsers([]);
+                navigate('/login');
                 console.error('Data is not an array:', data.detail || data.error || data);
             }            
         }catch(err){
